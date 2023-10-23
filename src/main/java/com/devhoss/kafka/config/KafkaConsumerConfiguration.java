@@ -40,6 +40,9 @@ public class KafkaConsumerConfiguration {
 		ConcurrentKafkaListenerContainerFactory<Integer, String>
 		factory = new ConcurrentKafkaListenerContainerFactory<>();
 		factory.setConsumerFactory(consumerFactory());
+		factory.setBatchListener(true);
+			
+
 		return factory;
 	}
 }

@@ -22,25 +22,8 @@ public class KafkaProducer implements CommandLineRunner {
 	@Override
 	public void run(String... args) throws Exception {
 		System.out.println("ENVIANDOO...");
-		//kafkaTemplate.send("testtopicreplication3","Mensaje de producer kafka");
-		
-		CompletableFuture<SendResult<Integer, String>> future = kafkaTemplate.send("testtopicreplication3","Sample message CALLBACK ASINCRONO ");
-
-
-		future.whenComplete(new BiConsumer<SendResult<Integer, String>,Throwable>() {
-
-			@Override
-			public void accept(SendResult<Integer, String> result, Throwable u) {
-				if (u != null) {
-					log.error("Error sending message ",u);
-
-				}
-				else {
-					log.info("<Message sent Callback Asincrono>");
-
-				}   
-			}
-		});
-
+		for (int i = 0;i < 100;i++) {
+			kafkaTemplate.send("testtopicreplication3","Mensaje BATCH - " + (i + 1));
+		}
 	}
 }
