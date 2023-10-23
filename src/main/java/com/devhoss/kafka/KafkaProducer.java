@@ -23,7 +23,7 @@ public class KafkaProducer implements CommandLineRunner {
 	public void run(String... args) throws Exception {
 		System.out.println("ENVIANDOO...");
 		for (int i = 0;i < 100;i++) {
-			kafkaTemplate.send("testtopicreplication3","Mensaje BATCH - " + (i + 1));
+			kafkaTemplate.send("testtopicreplication3",Integer.valueOf(i),"Mensaje BATCH - " + (i + 1));
 		}
 	}
 }
