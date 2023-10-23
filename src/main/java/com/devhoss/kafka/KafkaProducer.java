@@ -24,7 +24,7 @@ public class KafkaProducer implements CommandLineRunner {
 		System.out.println("ENVIANDOO...");
 		//kafkaTemplate.send("testtopicreplication3","Mensaje de producer kafka");
 		
-		CompletableFuture<SendResult<Integer, String>> future = kafkaTemplate.send("devs4j-topic","Sample message ");
+		CompletableFuture<SendResult<Integer, String>> future = kafkaTemplate.send("testtopicreplication3","Sample message CALLBACK ASINCRONO ");
 
 
 		future.whenComplete(new BiConsumer<SendResult<Integer, String>,Throwable>() {
