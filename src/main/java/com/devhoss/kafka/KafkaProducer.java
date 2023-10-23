@@ -1,12 +1,19 @@
 package com.devhoss.kafka;
 
+import java.util.concurrent.CompletableFuture;
+import java.util.function.BiConsumer;
+
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.kafka.core.KafkaTemplate;
+import org.springframework.kafka.support.SendResult;
 import org.springframework.stereotype.Component;
 
 @Component
 public class KafkaProducer implements CommandLineRunner {
+
+	public static final org.slf4j.Logger log = LoggerFactory.getLogger(KafkaProducer.class);
 
 
 	@Autowired
@@ -15,6 +22,25 @@ public class KafkaProducer implements CommandLineRunner {
 	@Override
 	public void run(String... args) throws Exception {
 		System.out.println("ENVIANDOO...");
-		kafkaTemplate.send("testtopicreplication3","Mensaje de producer kafka");
+		//kafkaTemplate.send("testtopicreplication3","Mensaje de producer kafka");
+		
+		CompletableFuture<SendResult<Integer, String>> future = kafkaTemplate.send("devs4j-topic","Sample message ");
+
+
+		future.whenComplete(new BiConsumer<SendResult<Integer, String>,Throwable>() {
+
+			@Override
+			public void accept(SendResult<Integer, String> result, Throwable u) {
+				if (u != null) {
+					log.error("Error sending message ",u);
+
+				}
+				else {
+					log.info("<Message sent Callback Asincrono>");
+
+				}   
+			}
+		});
+
 	}
 }
