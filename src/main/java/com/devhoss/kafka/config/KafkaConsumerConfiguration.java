@@ -41,6 +41,7 @@ public class KafkaConsumerConfiguration {
 		factory = new ConcurrentKafkaListenerContainerFactory<>();
 		factory.setConsumerFactory(consumerFactory());
 		factory.setBatchListener(true);
+		factory.setConcurrency(5);// 3 hilos
 			
 
 		return factory;
